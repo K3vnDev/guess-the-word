@@ -31,3 +31,17 @@
 .cell.gray {
   background: var(--gray);
 }
+
+@keyframes cell-pop {
+  0% {
+    scale: .975;
+  }
+
+  10% {
+    scale: 1.07;
+  }
+
+  100% {
+    scale: 1;
+  }
+}

@@ -9,11 +9,16 @@ interface Props {
 }
 
 export function Cell({ cellContent, rowIndex, cellIndex, cellClassName }: Props) {
-  const { className, handleClick } = useCell({ rowIndex, cellIndex, cellClassName })
+  const { className, handleClick, animation } = useCell({
+    rowIndex,
+    cellIndex,
+    cellClassName,
+    cellContent
+  })
 
   return (
     <div className={className} onClick={handleClick}>
-      {cellContent}
+      <span style={{ animation }}>{cellContent}</span>
     </div>
   )
 }

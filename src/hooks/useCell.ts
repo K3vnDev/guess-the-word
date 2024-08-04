@@ -1,13 +1,29 @@
+import { useEffect, useState } from 'react'
 import { useStore } from '../store/useStore'
+import { useCooldown } from './useCooldown'
 
 interface Params {
   cellIndex: number
   rowIndex: number
   cellClassName: string | null
+  cellContent: string
 }
 
-export function useCell({ cellIndex, rowIndex, cellClassName }: Params) {
+const animationTime = 0.4
+
+export function useCell({ cellIndex, rowIndex, cellClassName, cellContent }: Params) {
   const { setCurrentCellIndex, currentCellIndex, currentRowIndex } = useStore(s => s)
+  const [animation, setAnimation] = useState('none')
+
+  const { triggerAction: triggerAnimation } = useCooldown({
+    action: () => setAnimation(`cell-pop ${animationTime}s ease both`),
+    reset: () => setAnimation('none'),
+    cooldown: animationTime * 1000
+  })
+
+  useEffect(() => {
+    if (cellContent) triggerAnimation()
+  }, [cellContent])
 
   const handleClick = () => {
     if (currentRowIndex === rowIndex) setCurrentCellIndex(cellIndex)
@@ -24,5 +40,5 @@ export function useCell({ cellIndex, rowIndex, cellClassName }: Params) {
     return newClassName
   })()
 
-  return { className, handleClick }
+  return { className, handleClick, animation }
 }
