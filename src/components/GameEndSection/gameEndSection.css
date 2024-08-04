@@ -1,0 +1,43 @@
+.game-end-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+}
+
+.game-end-section h3 {
+  color: #fff;
+  font-weight: 500;
+  font-size: 40px;
+  font-family: var(--paragraph-font-family);
+}
+
+.game-end-section button {
+  --btn-size: 60px;
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #ddd;
+  transition: scale .2s ease;
+
+
+  &:active {
+    scale: .9;
+  }
+}
+
+.game-end-section button svg {
+  --svg-size: 70%;
+  width: var(--svg-size);
+  height: var(--svg-size);
+  stroke: #000;
+  stroke-width: 2;
+  transition: all .25s ease-out;
+}
+
+.game-end-section button:hover svg {
+  scale: 1.1;
+  filter: invert(40%);
+}

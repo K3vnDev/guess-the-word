@@ -1,0 +1,33 @@
+.cell {
+  --size: 90px;
+  width: var(--size);
+  height: var(--size);
+  background: #2e2e2e;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--cell-font-family);
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 0 16px rgb(0 0 0 / .1);
+  font-size: 70px;
+
+  transition: background .1s ease-out;
+}
+
+.cell.selected {
+  outline: 4px solid var(--darker-gray);
+}
+
+.cell.green {
+  background: var(--green);
+}
+
+.cell.yellow {
+  background: var(--yellow);
+}
+
+.cell.gray {
+  background: var(--gray);
+}
