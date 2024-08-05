@@ -1,6 +1,7 @@
 export const NUMBER_OF_ROWS = 6
 export const initialBoard = Array(NUMBER_OF_ROWS).fill(Array(5).fill(''))
 export const WORD_NOT_FOUND_EVENT = 'wordnotfound'
+export const REPOSITORY_URL = 'https://github.com/K3vnDev/guess-the-word'
 
 export const letters = [
   'a',
@@ -33,6 +34,8 @@ export const letters = [
 ]
 
 export const words = [
+  'telar',
+  'resta',
   'dardo',
   'poner',
   'motos',

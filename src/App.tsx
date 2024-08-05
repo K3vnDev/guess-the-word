@@ -1,5 +1,6 @@
 import { GameBoard } from './components/GameBoard/GameBoard'
 import { GameEndSection } from './components/GameEndSection/GameEndSection'
+import { GithubAnchor } from './components/GithubAnchor/GithubAnchor'
 import { WordNotFoundMsg } from './components/WordNotFoundMsg/WordNotFoundMsg'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <GameBoard />
       <GameEndSection />
       <WordNotFoundMsg />
+      <GithubAnchor />
     </>
   )
 }

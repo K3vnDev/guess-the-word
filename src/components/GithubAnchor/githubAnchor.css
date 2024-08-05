@@ -1,0 +1,21 @@
+.github-anchor {
+  --size: 70px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 10px;
+  background: #2e2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  --margin: 32px;
+  top: var(--margin);
+  right: var(--margin);
+}
+
+.github-anchor svg {
+  --svg-size: 70%;
+  width: var(--svg-size);
+  height: var(--svg-size);
+  filter: invert(50%);
+}

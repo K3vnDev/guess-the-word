@@ -1,3 +1,4 @@
+import confetti from 'canvas-confetti'
 import { useEffect, useState } from 'react'
 import { NUMBER_OF_ROWS } from '../consts.d'
 import { useStore } from '../store/useStore'
@@ -24,6 +25,10 @@ export function useGameEndSection() {
       setWinner(lastRowContent.every(cell => cell === 'green'))
     }
   }, [boardClassNames])
+
+  useEffect(() => {
+    if (winner) confetti({ origin: { y: 0.7 } })
+  }, [winner])
 
   const resetState = () => setWinner(null)
 
