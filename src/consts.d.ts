@@ -34,6 +34,14 @@ export const LETTERS = [
 ]
 
 export const WORDS = [
+  'ilesa',
+  'obeso',
+  'obesa',
+  'oreja',
+  'ileso',
+  'arepa',
+  'arena',
+  'fiera',
   'perno',
   'muela',
   'carpa',
