@@ -5,6 +5,7 @@ interface Params {
   reset?: () => void
   cooldown: number
 }
+type ReturnType = [() => void, boolean]
 
 export function useCooldown({ action, reset, cooldown }: Params) {
   const [waiting, setWaiting] = useState(false)
@@ -13,16 +14,18 @@ export function useCooldown({ action, reset, cooldown }: Params) {
   useEffect(() => () => clearTimeout(timeout.current), [])
 
   const triggerAction = () => {
-    if (waiting) return
+    if (timeout.current) return
 
     action()
     setWaiting(true)
 
     timeout.current = setTimeout(() => {
       if (reset) reset()
+      clearTimeout(timeout.current)
+      timeout.current = undefined
       setWaiting(false)
     }, cooldown)
   }
 
-  return { triggerAction, waiting }
+  return [triggerAction, waiting] as ReturnType
 }

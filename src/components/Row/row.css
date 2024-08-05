@@ -1,3 +1,17 @@
 .row.selected {
   filter: brightness(140%);
 }
+
+@keyframes row-shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  35% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

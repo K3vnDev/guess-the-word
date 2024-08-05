@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { NUMBER_OF_ROWS, initialBoard, letters } from '../consts.d'
+import { NUMBER_OF_ROWS, initialBoard, letters, words } from '../consts.d'
+import { dispatchWordNotFound } from '../services/dispatchWordNotFound'
 import { getRandomWord } from '../services/getRandomWord'
 import type { Board, ClassNames } from '../types.d'
 
@@ -69,18 +70,33 @@ export const useStore = create<Store>()(set => ({
 
   currentRowIndex: 0,
   goToNextRow: () =>
-    set(({ currentRowIndex, setCurrentCellIndex, board, generateBoardClassNames }) => {
-      const rowIsFilled = board[currentRowIndex].every(rowContent => rowContent !== '')
-      if (!rowIsFilled) return {}
-      generateBoardClassNames()
+    set(
+      ({
+        currentRowIndex,
+        currentCellIndex,
+        setCurrentCellIndex,
+        generateBoardClassNames,
+        board
+      }) => {
+        let currentRowWord = ''
+        for (const cellContent of board[currentRowIndex]) {
+          currentRowWord += cellContent.toLowerCase()
+        }
+        if (!words.includes(currentRowWord)) {
+          if (currentCellIndex !== -1) dispatchWordNotFound(currentRowIndex)
+          return {}
+        }
 
-      if (currentRowIndex < NUMBER_OF_ROWS - 1) {
-        setCurrentCellIndex(0)
-        return { currentRowIndex: currentRowIndex + 1 }
+        generateBoardClassNames()
+
+        if (currentRowIndex < NUMBER_OF_ROWS - 1) {
+          setCurrentCellIndex(0)
+          return { currentRowIndex: currentRowIndex + 1 }
+        }
+        setCurrentCellIndex(-1)
+        return {}
       }
-      setCurrentCellIndex(-1)
-      return {}
-    }),
+    ),
 
   currentCellIndex: 0,
   setCurrentCellIndex: newValue =>

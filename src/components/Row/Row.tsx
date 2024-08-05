@@ -1,5 +1,4 @@
 import { useRow } from '../../hooks/useRow'
-import { useStore } from '../../store/useStore'
 import { Cell } from '../Cell/Cell'
 import './row.css'
 
@@ -9,12 +8,10 @@ interface Props {
 }
 
 export function Row({ content: rowContent, index: rowIndex }: Props) {
-  const { currentRowIndex, currentCellIndex } = useStore(s => s)
-  const { cellClassNames } = useRow({ rowIndex })
-  const className = currentRowIndex === rowIndex && currentCellIndex !== -1 ? 'row selected' : 'row'
+  const { cellClassNames, className, animation } = useRow({ rowIndex })
 
   return (
-    <div className={className}>
+    <div className={className} style={{ animation }}>
       {rowContent.map((cell, index) => (
         <Cell
           cellContent={cell}

@@ -1,0 +1,32 @@
+.word-not-found {
+  position: absolute;
+  font-family: var(--paragraph-font-family);
+  color: #bbb;
+  --font-size: 28px;
+  bottom: 60px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+@keyframes wnf-slide-in {
+  0% {
+    opacity: 0;
+    font-size: calc(var(--font-size) * 0.9);
+    transform: translate(-50%, 0);
+  }
+
+  10% {
+    opacity: 1;
+    font-size: var(--font-size);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    font-size: calc(var(--font-size) * 1.1);
+    transform: translate(-50%, -40px);
+  }
+}

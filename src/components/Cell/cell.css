@@ -12,8 +12,14 @@
   font-weight: 600;
   text-shadow: 0 0 16px rgb(0 0 0 / .1);
   font-size: 70px;
+  cursor: default;
+  user-select: none;
 
   transition: background .1s ease-out;
+}
+
+.row.selected .cell:not(.selected) {
+  cursor: pointer;
 }
 
 .cell.selected {

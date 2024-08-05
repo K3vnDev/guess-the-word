@@ -15,7 +15,7 @@ export function useCell({ cellIndex, rowIndex, cellClassName, cellContent }: Par
   const { setCurrentCellIndex, currentCellIndex, currentRowIndex } = useStore(s => s)
   const [animation, setAnimation] = useState('none')
 
-  const { triggerAction: triggerAnimation } = useCooldown({
+  const [triggerAnimation] = useCooldown({
     action: () => setAnimation(`cell-pop ${animationTime}s ease both`),
     reset: () => setAnimation('none'),
     cooldown: animationTime * 1000

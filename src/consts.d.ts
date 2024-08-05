@@ -1,6 +1,6 @@
 export const NUMBER_OF_ROWS = 6
-
 export const initialBoard = Array(NUMBER_OF_ROWS).fill(Array(5).fill(''))
+export const WORD_NOT_FOUND_EVENT = 'wordnotfound'
 
 export const letters = [
   'a',
@@ -33,6 +33,12 @@ export const letters = [
 ]
 
 export const words = [
+  'dardo',
+  'poner',
+  'motos',
+  'fotos',
+  'hotel',
+  'cerdo',
   'amigo',
   'campo',
   'calle',
