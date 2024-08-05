@@ -1,8 +1,8 @@
 import { create } from 'zustand'
-import { NUMBER_OF_ROWS, initialBoard, letters, words } from '../consts.d'
+import { INITIAL_BOARD, LETTERS, NUMBER_OF_ROWS, WORDS } from '../consts.d'
 import { dispatchWordNotFound } from '../services/dispatchWordNotFound'
 import { getRandomWord } from '../services/getRandomWord'
-import type { Board, ClassNames } from '../types.d'
+import type { Board, ClassNames, Winner } from '../types.d'
 
 interface Store {
   word: string
@@ -25,12 +25,15 @@ interface Store {
   generateBoardClassNames: () => void
 
   resetGame: () => void
+
+  winner: Winner
+  setWinner: (newValue: Winner) => void
 }
 
 export const useStore = create<Store>()(set => ({
   word: getRandomWord(),
 
-  board: initialBoard,
+  board: INITIAL_BOARD,
 
   boardClassNames: null,
   generateBoardClassNames: () =>
@@ -82,11 +85,10 @@ export const useStore = create<Store>()(set => ({
         for (const cellContent of board[currentRowIndex]) {
           currentRowWord += cellContent.toLowerCase()
         }
-        if (!words.includes(currentRowWord)) {
+        if (!WORDS.includes(currentRowWord)) {
           if (currentCellIndex !== -1) dispatchWordNotFound(currentRowIndex)
           return {}
         }
-
         generateBoardClassNames()
 
         if (currentRowIndex < NUMBER_OF_ROWS - 1) {
@@ -105,11 +107,16 @@ export const useStore = create<Store>()(set => ({
     }),
 
   setCurrentCellContent: newValue =>
-    set(({ board, currentRowIndex, currentCellIndex, moveCellIndexRight }) => {
+    set(({ board, currentRowIndex, currentCellIndex, moveCellIndexRight, winner, resetGame }) => {
       const newBoard = [...board]
       const newRow = [...board[currentRowIndex]]
 
-      if (!letters.includes(newValue.toLowerCase()) || currentCellIndex === -1) return {}
+      if (winner !== null) {
+        if (newValue.toUpperCase() === 'R') resetGame()
+        return {}
+      }
+
+      if (!LETTERS.includes(newValue.toLowerCase())) return {}
 
       const upperCasedValue = newValue.toUpperCase()
       newRow.splice(currentCellIndex, 1, upperCasedValue)
@@ -159,11 +166,15 @@ export const useStore = create<Store>()(set => ({
   resetGame: () =>
     set(() => {
       return {
-        board: initialBoard,
+        board: INITIAL_BOARD,
         currentRowIndex: 0,
         currentCellIndex: 0,
         boardClassNames: null,
-        word: getRandomWord()
+        word: getRandomWord(),
+        winner: null
       }
-    })
+    }),
+
+  winner: null,
+  setWinner: newValue => set(() => ({ winner: newValue }))
 }))

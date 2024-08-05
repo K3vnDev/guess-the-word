@@ -1,12 +1,12 @@
 import confetti from 'canvas-confetti'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { NUMBER_OF_ROWS } from '../consts.d'
 import { useStore } from '../store/useStore'
-import type { Winner } from '../types.d'
 
 export function useGameEndSection() {
-  const { boardClassNames, currentRowIndex, setCurrentCellIndex } = useStore(s => s)
-  const [winner, setWinner] = useState<Winner>(null)
+  const { boardClassNames, currentRowIndex, setCurrentCellIndex, winner, setWinner } = useStore(
+    s => s
+  )
 
   useEffect(() => {
     if (!boardClassNames) return
@@ -30,11 +30,9 @@ export function useGameEndSection() {
     if (winner) confetti({ origin: { y: 0.7 } })
   }, [winner])
 
-  const resetState = () => setWinner(null)
-
   const text = winner
     ? { message: 'Has ganado!', button: 'Jugar de nuevo' }
     : { message: 'Has perdido', button: 'Intentarlo de nuevo' }
 
-  return { winner, text, resetState }
+  return { winner, text }
 }
